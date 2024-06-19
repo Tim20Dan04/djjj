@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy 
-from .models import Project
+from .models import Project, ProjectStudents
 from .forms import ProjectForm
+from django.utils import timezone
 
 def index(request):
     num_projects = Project.objects.count()
@@ -20,7 +21,15 @@ def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            form.save()
+            project = form.save(commit=False)
+            project.save()
+            students = form.cleaned_data['students']
+            for student in students:
+                ProjectStudents.objects.create(
+                    project=project,
+                    student=student,
+                    assigned_date=timezone.now()
+                )
             return redirect('home')
     else:
         form = ProjectForm()
