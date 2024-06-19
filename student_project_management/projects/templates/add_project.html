@@ -1,0 +1,20 @@
+<!-- projects/templates/add_project.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Add Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Add Project</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" class="mt-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Add Project</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
