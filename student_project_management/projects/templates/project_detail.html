@@ -16,6 +16,8 @@
                 <li class="list-group-item">{{ student.first_name }} {{ student.last_name }}</li>
                 {% endfor %}
             </ul>
+            <h6>Status:</h6>
+            <p>{{ project.status }}</p>
             <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Projects</a>
         </div>
     </div>
